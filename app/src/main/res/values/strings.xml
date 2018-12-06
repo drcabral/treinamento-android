@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BoardingPass</string>
+    <string name="record_locator">Record Locator</string>
+    <string name="search_boarding_pass">Search Boarding Pass</string>
+</resources>
