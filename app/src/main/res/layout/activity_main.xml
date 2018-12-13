@@ -47,4 +47,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+            android:text="@string/view_all_boarding_passes"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:id="@+id/allBoardingPassesButton" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/searchButton"/>
 </android.support.constraint.ConstraintLayout>

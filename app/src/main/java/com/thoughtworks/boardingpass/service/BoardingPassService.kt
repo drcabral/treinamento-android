@@ -10,4 +10,7 @@ interface BoardingPassService {
     @GET("boardingPass/{id}")
     fun boardingPassById(@Path("id") id: String): Call<BoardingPass>
 
+    @GET("boardingPass")
+    fun allBoardingPasses(): Call<List<BoardingPass>>
+
 }

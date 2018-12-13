@@ -14,6 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import java.io.Serializable
+import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,11 +45,40 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+
+        allBoardingPassesButton.setOnClickListener{
+            hideKeyboard()
+            progressBar.visibility = View.VISIBLE
+
+            ServiceFactory.boardingPassService().allBoardingPasses().enqueue(object: Callback<List<BoardingPass>>{
+                override fun onFailure(call: Call<List<BoardingPass>>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, R.string.error_request_boarding_passes, Toast.LENGTH_LONG).show()
+                    progressBar.visibility = View.GONE
+                }
+
+                override fun onResponse(call: Call<List<BoardingPass>>, response: Response<List<BoardingPass>>) {
+                    if (response.isSuccessful) {
+                        goToBoardingPassesScreen(response.body())
+                    } else {
+                        Toast.makeText(this@MainActivity, R.string.boarding_passes_not_found, Toast.LENGTH_LONG).show()
+                    }
+
+                    progressBar.visibility = View.GONE
+                }
+
+            })
+        }
     }
 
     private fun goToBoardingPassScreen(boardingPass: BoardingPass?) {
         val intent = Intent(this, BoardingPassActivity::class.java)
         intent.putExtra(QR_CODE_URL, boardingPass?.url)
+        startActivity(intent)
+    }
+
+    private fun goToBoardingPassesScreen(boardingPasses: List<BoardingPass>?) {
+        val intent = Intent(this, BoardingPassesActivity::class.java)
+        intent.putExtra(QR_CODE_URL, boardingPasses as Serializable)
         startActivity(intent)
     }
 
